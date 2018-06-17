@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">eBelle_Test</string>
+
+    <string name="open_navigation_drawer">Open Navigation Drawer</string>
+    <string name="close_navigation_drawer">Close Navigation Drawer</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+
+
+
+    <string-array name="ReorderSpinnerItems">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
+
+    <string-array name="ProductServicesSpinnerItems">
+        <item>Braiding</item>
+        <item>Make-Up</item>
+        <item>Pedicure</item>
+        <item>Facial</item>
+    </string-array>
+
+    <string-array name="ServiceCategory">
+        <item>Hair</item>
+        <item>Make-Up</item>
+        <item>Nails</item>
+        <item>Body Treatment</item>
+    </string-array>
+
 </resources>
