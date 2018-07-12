@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="4">
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp">
+
+        <TextView
+            android:id="@+id/BasicInfo_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Basic Information"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <ImageView
+            android:id="@+id/EmpProfilePicture"
+            android:layout_width="291dp"
+            android:layout_height="68dp"
+            android:clickable="true"
+            android:layout_below="@+id/BasicInfo_text_view"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_account_profileimage" />
+
+        <EditText
+            android:id="@+id/EmpFirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/EmpProfilePicture"
+            android:hint="First Name" />
+
+        <EditText
+            android:id="@+id/EmpLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/EmpProfilePicture"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/EmpFirstName"
+            android:hint="Last Name" />
+
+        <LinearLayout
+            android:id="@+id/Empgender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/EmpFirstName"
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/Female_Image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/disabledButton"
+                android:drawableTop="@drawable/gender_female"
+                android:text="@string/female" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="16dp"
+                android:text="or"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorPrimaryDark" />
+
+
+            <Button
+                android:id="@+id/Male_Image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/disabledButton"
+                android:drawableTop="@drawable/gender_male"
+                android:text="@string/male" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/EmpcontactInfo_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Empgender"
+            android:layout_margin="5dp"
+            android:text="Contact Information"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimary" />
+
+
+        <EditText
+            android:id="@+id/EmpContactNo_editText"
+            android:layout_width="154dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/EmpcontactInfo_text_view"
+            android:layout_marginTop="5dp"
+            android:hint="Contact No."
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/EmpEmail_editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/EmpcontactInfo_text_view"
+            android:layout_toRightOf="@+id/EmpContactNo_editText"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/EmpInfo_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/EmpContactNo_editText"
+            android:layout_marginTop="5dp"
+            android:text="Employment Information"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/EmpServices_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/EmpServices_spinner"
+            android:text="Services" />
+
+        <Spinner
+            android:id="@+id/EmpServices_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/EmpInfo_text_view"
+            android:layout_toRightOf="@id/EmpServices_text_view"
+            android:paddingLeft="50dp"
+            android:entries="@array/ProductServicesSpinnerItems"
+            android:text="Services" />
+
+        <TextView
+            android:id="@+id/EmpSalary_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/EmpServices_text_view"
+            android:layout_marginTop="5dp"
+            android:text="Salary Method" />
+
+        <Spinner
+            android:id="@+id/SalaryMethod_Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/EmpServices_text_view"
+            android:entries="@array/paymentMethods"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/EmpSalary_text_view">
+
+        </Spinner>
+
+        <TextView
+            android:id="@+id/EmpAccessRight_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/SalaryMethod_Spinner"
+            android:layout_marginTop="15dp"
+            android:text="Access Rights"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <RadioGroup
+            android:id="@+id/empAccessRightGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/EmpAccessRight_text_view"
+            android:gravity="center_horizontal"
+            android:padding="10dp">
+
+                <RadioButton
+                    android:id="@+id/noAccessRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/None"
+                    android:onClick="onRadioButtonClicked"
+                    android:textAlignment="center" />
+
+                <RadioButton
+                    android:id="@+id/receptionistAccessRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Receptionist"
+                    android:onClick="onRadioButtonClicked"
+                    android:textAlignment="center"/>
+
+                <RadioButton
+                    android:id="@+id/financeAccessRight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Financial_Manager"
+                    android:onClick="onRadioButtonClicked"
+                    android:textAlignment="center"/>
+
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/addEmployee_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/empAccessRightGroup"
+            android:layout_centerInParent="true"
+            android:padding="5dp"
+            android:text="Add" />
+    </RelativeLayout>
+
+</LinearLayout>
