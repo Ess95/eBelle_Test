@@ -3,20 +3,58 @@ package com.example.eodhuno.ebelle_test.database_objects;
 import java.util.ArrayList;
 
 public class Product {
-    int ProdID, ServID_FK, Price, reorderlevel,Availability ;
-    String Prod_Name, prodDescr, prodServices;
+    int ProdID, ServID_FK, Price, reorderlevel, prodQty, Availability;
+    String Prod_Name, prodDescr;
 
     public Product(){}
 
-    public Product(int prodID, int servID_FK, String prod_Name, String prod_descr, int unitPrice, int reorderLevel,
-                   int availability) {
+    public Product(int prodID, String prod_Name, String prod_descr,int prodQuantity,int unitPrice, int reorderLevel,
+                   int availability,int servID_FK) {
         ProdID = prodID;
         ServID_FK = servID_FK;
         Prod_Name = prod_Name;
         prodDescr = prod_descr;
+        prodQty = prodQuantity;
         Price = unitPrice;
         reorderlevel = reorderLevel;
         Availability = availability;
+
+    }
+
+    public int getProdQty() {
+        return prodQty;
+    }
+
+    public void setProdQty(int prodQty) {
+        this.prodQty = prodQty;
+    }
+
+    public void setProdID(int prodID) {
+        ProdID = prodID;
+    }
+
+    public void setServID_FK(int servID_FK) {
+        ServID_FK = servID_FK;
+    }
+
+    public void setPrice(int unitPrice) {
+        Price = unitPrice;
+    }
+
+    public void setReorderlevel(int reorderlevel) {
+        this.reorderlevel = reorderlevel;
+    }
+
+    public void setAvailability(int availability) {
+        Availability = availability;
+    }
+
+    public void setProd_Name(String prod_Name) {
+        Prod_Name = prod_Name;
+    }
+
+    public void setProdDescr(String prodDescr) {
+        this.prodDescr = prodDescr;
     }
 
     public int getProdID() {
@@ -47,18 +85,25 @@ public class Product {
         return prodDescr;
     }
 
+
     public String getProperty(String propertyName){
         switch (propertyName){
             case "ProdID":
                 return String.valueOf(getProdID());
-            case "ServID_FK":
-                return String.valueOf(getServID_FK());
             case "Prod_Name":
                 return getProd_Name();
+            case "Prod_Descr":
+                return getProdDescr();
+            case "Prod_Qty":
+                return ""+getProdQty();
             case "Price":
                 return ""+getPrice();
+            case "ReorderLevel":
+                return ""+getReorderlevel();
             case "Availability":
-                return String.valueOf(getAvailability());
+                return ""+getAvailability();
+            case "ServID_FK":
+                return String.valueOf(getServID_FK());
 
         }
         return "";
@@ -70,6 +115,7 @@ public class Product {
         itemList.add(""+getServID_FK());
         itemList.add(getProd_Name());
         itemList.add(getProdDescr());
+        itemList.add(""+getProdQty());
         itemList.add(""+getPrice());
         itemList.add(""+getReorderlevel());
         itemList.add(""+getAvailability());

@@ -17,6 +17,30 @@ public class CustomerPaymentHistory {
         CustomerHistory_ModeOfPay = customerHistory_ModeOfPay;
     }
 
+    public void setCustHistory_ID(int custHistory_ID) {
+        CustHistory_ID = custHistory_ID;
+    }
+
+    public void setCustomerHistory_TotalCharges(int customerHistory_TotalCharges) {
+        CustomerHistory_TotalCharges = customerHistory_TotalCharges;
+    }
+
+    public void setCustomerHistory_DateOfPayment(String customerHistory_DateOfPayment) {
+        CustomerHistory_DateOfPayment = customerHistory_DateOfPayment;
+    }
+
+    public void setCustomerHistory_Services(String customerHistory_Services) {
+        CustomerHistory_Services = customerHistory_Services;
+    }
+
+    public void setCustomerHistory_Beautician(String customerHistory_Beautician) {
+        CustomerHistory_Beautician = customerHistory_Beautician;
+    }
+
+    public void setCustomerHistory_ModeOfPay(String customerHistory_ModeOfPay) {
+        CustomerHistory_ModeOfPay = customerHistory_ModeOfPay;
+    }
+
     public int getCustHistory_ID() {
         return CustHistory_ID;
     }

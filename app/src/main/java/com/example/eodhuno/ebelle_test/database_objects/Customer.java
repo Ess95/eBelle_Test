@@ -5,11 +5,11 @@ import java.util.List;
 
 public class Customer {
     int CustID,Contact;
-    String FirstName, LastName, Gender, Email, Password;
+    String FirstName, LastName, Gender, Email, Password, ConfirmPassword;
 
     public Customer() {}
 
-    public Customer(int custID, String firstName, String lastName, String gender, int contact, String email, String password) {
+    public Customer(int custID, String firstName, String lastName, String gender, int contact, String email, String password, String confirmPassword) {
         CustID = custID;
         this.FirstName = firstName;
         this.LastName = lastName;
@@ -17,7 +17,42 @@ public class Customer {
         this.Contact = contact;
         this.Email = email;
         this.Password = password;
+        this.ConfirmPassword = confirmPassword;
     }
+
+    public void setCustID(int custID) {
+        CustID = custID;
+    }
+
+    public void setContact(int contact) {
+        Contact = contact;
+    }
+
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        LastName = lastName;
+    }
+
+    public void setGender(String gender) {
+        Gender = gender;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public void setPassword(String password) {
+        Password = password;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        ConfirmPassword = confirmPassword;
+    }
+
+    public String getConfirmPassword() { return ConfirmPassword; }
 
     public int getCustID() {
         return CustID;
@@ -63,6 +98,8 @@ public class Customer {
                 return getEmail();
             case "password":
                 return getPassword();
+            case "confirm_password":
+                return getConfirmPassword();
         }
         return "";
     }
@@ -76,6 +113,7 @@ public class Customer {
         itemList.add(""+getContact());
         itemList.add(getEmail());
         itemList.add(getPassword());
+        itemList.add(getConfirmPassword());
 
         return itemList;
     }

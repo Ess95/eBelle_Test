@@ -68,7 +68,7 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
     private void addNewService(){
         String serviceName = ServiceName.getText().toString();
         String serviceDescr = ServiceDescr.getText().toString();
-        String servDuration = ServiceDuration.getText().toString();
+        int servDuration = Integer.parseInt(ServiceDuration.getText().toString());
         int servicePrice = Integer.parseInt(ServicePrice.getText().toString());
 
         if(serviceName.isEmpty()){
@@ -81,7 +81,7 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
             ServiceDescr.requestFocus();
             return;
         }
-        if(servDuration.isEmpty()){
+        if(servDuration == 0){
             ServiceDuration.setError("Product quantity cannot be empty");
             ServiceDuration.requestFocus();
             return;
@@ -93,15 +93,17 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         if(ServAvailability != null) {
-            ServAvailability.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            serviceAvailability = Integer.parseInt(String.valueOf(ServAvailability.isChecked() ? "1" : "0"));
+
+            /**ServAvailability.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    serviceAvailability = Integer.parseInt(String.valueOf(ServAvailability.isChecked() ? ServAvailability.getTextOn().toString() : ServAvailability.getTextOff()).toString());
                 }
-            });
+            });**/
         }
 
-        if(mDatabase.addServices(serviceName,serviceDescr,serviceCategory,servicePrice,servDuration, String.valueOf(serviceAvailability))){
+
+        if(mDatabase.addServices(serviceName,serviceDescr,Integer.parseInt(serviceCategory),servicePrice,servDuration, serviceAvailability)){
             Toast.makeText(this,"Service added successfully", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this,"Service not created successfully", Toast.LENGTH_SHORT).show();

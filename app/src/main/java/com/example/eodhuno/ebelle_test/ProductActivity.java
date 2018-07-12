@@ -2,6 +2,7 @@ package com.example.eodhuno.ebelle_test;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,9 +19,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     Switch ProdAvailability;
     DatabaseManager mDatabase;
 
-    String productServices;
-    int productReorderLevel;
-    int productAvailable;
+    int productReorderLevel,productAvailable,productServices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         productReorderLevel =Integer.parseInt(ReorderLevel.getItemAtPosition(position).toString());
-        productServices= ProdSevices.getItemAtPosition(position).toString();
+        productServices= Integer.parseInt(ProdSevices.getItemAtPosition(position).toString());
     }
 
     @Override
@@ -80,19 +79,16 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             return;
         }
 
-        if(productServices.isEmpty()){
-            ProdQuantity.setError("Service cannot be empty");
-            ProdQuantity.requestFocus();
+        if(productServices == 0){
+            ProdSevices.getResources().getColor(R.color.colorAccent);
+            ProdSevices.requestFocus();
             return;
         }
 
         if(ProdAvailability != null) {
-            ProdAvailability.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    productAvailable = Integer.parseInt(String.valueOf(ProdAvailability.isChecked() ? ProdAvailability.getTextOn().toString() : ProdAvailability.getTextOff()).toString());
-                }
-            });
+            productAvailable = Integer.parseInt(ProdAvailability.isChecked() ? "1" : "0");
+            Log.d("AVAILABILITY","Available is "+productAvailable);
+
         }
 
         if(mDatabase.addProducts(productName,productDescr,productQty,productUnitPrice,productReorderLevel,productServices,productAvailable)){
@@ -102,7 +98,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         }
 
     }
-
 
     @Override
     public void onClick(View view) {
@@ -116,7 +111,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 ProdUnitPrice.setText("");
                 ReorderLevel.setSelection(1);//Change this to the item selected on the spinner!!!
                 ProdSevices.setSelection(1);//Change this to the item selected on the spinner!!!
-                ProdAvailability.isChecked();
+                ProdAvailability.setChecked(false);
                 break;
         }
     }

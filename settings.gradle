@@ -1,1 +1,1 @@
-include ':app', ':build.gradle2'
+include ':app'

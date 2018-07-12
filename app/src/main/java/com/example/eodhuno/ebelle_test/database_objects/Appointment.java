@@ -1,106 +1,153 @@
 package com.example.eodhuno.ebelle_test.database_objects;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 
 public class Appointment {
-    int ApptID, CustID_FK;
-    String DateCreated, ApptDate, ApptTime, Services, Beautician, Confirmation;
+    int apptID, custID_FK,services,ifProductUsed,confirmation, beautician, serviceCharge, productCharge, totalCharges;
+    String dateCreated, apptDate, apptTime;
 
     public Appointment(){}
 
-    public Appointment(int apptID, int custID_FK, String dateCreated, String apptDate, String apptTime, String services, String beautician, String confirmation) {
-        ApptID = apptID;
-        CustID_FK = custID_FK;
-        DateCreated = dateCreated;
-        ApptDate = apptDate;
-        ApptTime = apptTime;
-        Services = services;
-        Beautician = beautician;
-        Confirmation = confirmation;
+    public Appointment(int apptID, int custID_FK, String dateCreated, String apptDate, String apptTime, int services, int isProductUsed, int beautician, int confirmation
+    ,int serviceCharge, int productCharge, int totalCharges) {
+        this.apptID = apptID;
+        this.custID_FK = custID_FK;
+        this.dateCreated = dateCreated;
+        this.apptDate = apptDate;
+        this.apptTime = apptTime;
+        this.services = services;
+        this.ifProductUsed = isProductUsed;
+        this.beautician = beautician;
+        this.confirmation = confirmation;
+        this.serviceCharge = serviceCharge;
+        this.productCharge = productCharge;
+        this.totalCharges = totalCharges;
     }
 
     public int getApptID() {
-        return ApptID;
+        return apptID;
     }
 
     public void setApptID(int apptID) {
-        ApptID = apptID;
+        this.apptID = apptID;
     }
 
     public int getCustID_FK() {
-        return CustID_FK;
+        return custID_FK;
     }
 
     public void setCustID_FK(int custID_FK) {
-        CustID_FK = custID_FK;
+        this.custID_FK = custID_FK;
+    }
+
+    public int getIfProductUsed() {
+        return ifProductUsed;
+    }
+
+    public void setIfProductUsed(int ifProductUsed) {
+        this.ifProductUsed = ifProductUsed;
+    }
+
+    public int getConfirmation() {
+        return confirmation;
+    }
+
+    public void setConfirmation(int confirmation) {
+        this.confirmation = confirmation;
+    }
+
+    public int getServiceCharge() {
+        return serviceCharge;
+    }
+
+    public void setServiceCharge(int serviceCharge) {
+        this.serviceCharge = serviceCharge;
+    }
+
+    public int getProductCharge() {
+        return productCharge;
+    }
+
+    public void setProductCharge(int productCharge) {
+        this.productCharge = productCharge;
+    }
+
+    public int getTotalCharges() {
+        return totalCharges;
+    }
+
+    public void setTotalCharges(int totalCharges) {
+        this.totalCharges = totalCharges;
     }
 
     public String getDateCreated() {
-        return DateCreated;
+        return dateCreated;
     }
 
     public void setDateCreated(String dateCreated) {
-        DateCreated = dateCreated;
+        this.dateCreated = dateCreated;
     }
 
     public String getApptDate() {
-        return ApptDate;
+        return apptDate;
     }
 
     public void setApptDate(String apptDate) {
-        ApptDate = apptDate;
+        this.apptDate = apptDate;
     }
 
     public String getApptTime() {
-        return ApptTime;
+        return apptTime;
     }
 
     public void setApptTime(String apptTime) {
-        ApptTime = apptTime;
+        this.apptTime = apptTime;
     }
 
-    public String getServices() {
-        return Services;
+    public int getServices() {
+        return services;
     }
 
-    public void setServices(String services) {
-        Services = services;
+    public void setServices(int services) {
+        this.services = services;
     }
 
-    public String getBeautician() {
-        return Beautician;
+    public int getBeautician() {
+        return beautician;
     }
 
-    public void setBeautician(String beautician) {
-        Beautician = beautician;
-    }
-
-    public String getConfirmation() {
-        return Confirmation;
-    }
-
-    public void setConfirmation(String confirmation) {
-        Confirmation = confirmation;
+    public void setBeautician(int beautician) {
+        this.beautician = beautician;
     }
 
     public String getProperty(String propertyName){
         switch (propertyName){
             case "id":
                 return ""+getApptID();
-            case "CustID_FK":
+            case "custID_FK":
                 return ""+getCustID_FK();
-            case "DateCreated":
+            case "dateCreated":
                 return getDateCreated();
-            case "ApptDate":
+            case "apptDate":
                 return getApptDate();
-            case "ApptTime":
+            case "apptTime":
                 return getApptTime();
-            case "Services":
-                return getServices();
-            case "Beautician":
-                return getBeautician();
-            case "Confirmation":
-                return getConfirmation();
+            case "services":
+                return ""+getServices();
+            case "productUsed":
+                return ""+getIfProductUsed();
+            case "beautician":
+                return ""+getBeautician();
+            case "confirmation":
+                return ""+getConfirmation();
+            case "serviceCharge":
+                return ""+getServiceCharge();
+            case "productCharge":
+                return ""+getProductCharge();
+            case "totalCharge":
+                return ""+getTotalCharges();
         }
         return "";
     }
@@ -112,9 +159,13 @@ public class Appointment {
         itemList.add(getDateCreated());
         itemList.add(getApptDate());
         itemList.add(getApptTime());
-        itemList.add(getServices());
-        itemList.add(getBeautician());
-        itemList.add(getConfirmation());
+        itemList.add(""+getServices());
+        itemList.add(""+getIfProductUsed());
+        itemList.add(""+getBeautician());
+        itemList.add(""+getConfirmation());
+        itemList.add(""+getServiceCharge());
+        itemList.add(""+getProductCharge());
+        itemList.add(""+getTotalCharges());
 
         return itemList;
     }

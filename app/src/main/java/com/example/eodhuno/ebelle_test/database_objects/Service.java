@@ -3,23 +3,27 @@ package com.example.eodhuno.ebelle_test.database_objects;
 import java.util.ArrayList;
 
 public class Service {
-    int ServID, CategoryID_FK, Price;
+    int ServID, CategoryID_FK, Price, Duration, Availability;
 
-    String Serv_Name, Duration, Serv_Description, Availability;
+    String Serv_Name, Serv_Description;
 
     public Service(){}
 
-    public Service(int servID, int categoryID_FK, String serv_Name, String serv_Description, int price, String time, String availability) {
+    public Service(int servID, String serv_Name, int price, int duration, String serv_Description, int availability, int categoryID_FK) {
         ServID = servID;
         CategoryID_FK = categoryID_FK;
         Price = price;
         Serv_Name = serv_Name;
         Serv_Description = serv_Description;
-        Duration = time;
+        Duration = duration;
         Availability = availability;
     }
 
-    public String getDuration() {return Duration; }
+    public void setDuration(int duration) {
+        Duration = duration;
+    }
+
+    public int getDuration() {return Duration; }
 
     public int getServID() {
         return ServID;
@@ -59,11 +63,11 @@ public class Service {
 
     public void setServ_Description(String serv_Description) { Serv_Description = serv_Description; }
 
-    public String getAvailability() {
+    public int getAvailability() {
         return Availability;
     }
 
-    public void setAvailability(String availability) {
+    public void setAvailability(int availability) {
         Availability = availability;
     }
 
@@ -76,13 +80,13 @@ public class Service {
             case "Price":
                 return ""+getPrice();
             case "Time":
-                return getDuration();
+                return ""+getDuration();
             case "Serv_Name":
                 return getServ_Name();
             case "Serv_Description":
                 return getServ_Description();
             case "Availability":
-                return getAvailability();
+                return ""+getAvailability();
 
         }
         return "";
@@ -93,10 +97,10 @@ public class Service {
         itemList.add(""+getServID());
         itemList.add(""+getCategoryID_FK());
         itemList.add(""+getPrice());
-        itemList.add(getDuration());
+        itemList.add(""+getDuration());
         itemList.add(getServ_Name());
         itemList.add(getServ_Description());
-        itemList.add(getAvailability());
+        itemList.add(""+getAvailability());
 
         return itemList;
     }

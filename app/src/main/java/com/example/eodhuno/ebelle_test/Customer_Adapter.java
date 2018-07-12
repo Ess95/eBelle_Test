@@ -71,7 +71,7 @@ public class Customer_Adapter extends ArrayAdapter<Customer> {
 
     }
 
-    private void updateCustomerProfile(final Customer customer) {
+    public void updateCustomerProfile(final Customer customer) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
         LayoutInflater inflater = LayoutInflater.from(ctx);
         View view = inflater.inflate(R.layout.update_customer_profile, null);
@@ -86,7 +86,7 @@ public class Customer_Adapter extends ArrayAdapter<Customer> {
         final EditText editTextContact = view.findViewById(R.id.Contact_et);
         final EditText editTextEmail = view.findViewById(R.id.Email_et);
         final EditText editTextPassword = view.findViewById(R.id.Password_et);
-
+        final EditText editTextConfirmPassword = view.findViewById(R.id.confirmPassword_et);
 
         editTextFname.setText(customer.getFirstName());
         editTextContact.setText(String.valueOf(customer.getContact()));
@@ -101,6 +101,8 @@ public class Customer_Adapter extends ArrayAdapter<Customer> {
                 String updatedContact = editTextContact.getText().toString().trim();
                 String updatedEmail = editTextEmail.getText().toString().trim();
                 String updatedPassword = editTextPassword.getText().toString().trim();
+                String updatedConfirmPassword = editTextConfirmPassword.getText().toString().trim();
+
 
                 if(updatedFName.isEmpty()){
                     editTextFname.setError("Field cannot be empty");
@@ -118,7 +120,7 @@ public class Customer_Adapter extends ArrayAdapter<Customer> {
                     return;
                 }
                 //If all validations are passed, allow update of new values to the database
-                if(mDatabase.updateCustomer(customer.getCustID(),updatedFName, updatedLName, updatedGender, Integer.parseInt(updatedContact),updatedEmail,updatedPassword)) {
+                if(mDatabase.updateCustomer(customer.getCustID(),updatedFName, updatedLName, updatedGender, Integer.parseInt(updatedContact),updatedEmail,updatedPassword,updatedConfirmPassword)) {
                     Toast.makeText(ctx, "Profile updated successfully", Toast.LENGTH_LONG).show();
                 }else
                     Toast.makeText(ctx, "Update unsuccessfully", Toast.LENGTH_LONG).show();
@@ -130,7 +132,6 @@ public class Customer_Adapter extends ArrayAdapter<Customer> {
     });
     }
     private void reloadCustomerProfiles() {
-        String sql = "SELECT * FROM customers";
         Cursor cursor = mDatabase.readAllCustomerProfiles();
 
         if (cursor.moveToFirst()) {
@@ -144,7 +145,8 @@ public class Customer_Adapter extends ArrayAdapter<Customer> {
                         cursor.getString(3),
                         cursor.getInt(4),
                         cursor.getString(5),
-                        cursor.getString(6)
+                        cursor.getString(6),
+                        cursor.getString(7)
                 ));
             }
             while (cursor.moveToNext());
@@ -152,8 +154,7 @@ public class Customer_Adapter extends ArrayAdapter<Customer> {
 
         }
     }
-
-    private void deleteCustomerProfile(final Customer customer){
+    public void deleteCustomerProfile(final Customer customer){
         final AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
         builder.setTitle("Are you sure you want to delete " + customer.getFirstName().toString() +"'s profile?");
 
