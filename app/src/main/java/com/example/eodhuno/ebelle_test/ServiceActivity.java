@@ -66,6 +66,7 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
 
     }
     private void addNewService(){
+        int serviceImage = 0;
         String serviceName = ServiceName.getText().toString();
         String serviceDescr = ServiceDescr.getText().toString();
         int servDuration = Integer.parseInt(ServiceDuration.getText().toString());
@@ -103,7 +104,7 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         }
 
 
-        if(mDatabase.addServices(serviceName,serviceDescr,Integer.parseInt(serviceCategory),servicePrice,servDuration, serviceAvailability)){
+        if(mDatabase.addServices(serviceImage,serviceName,serviceDescr,Integer.parseInt(serviceCategory),servicePrice,servDuration, serviceAvailability)){
             Toast.makeText(this,"Service added successfully", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this,"Service not created successfully", Toast.LENGTH_SHORT).show();

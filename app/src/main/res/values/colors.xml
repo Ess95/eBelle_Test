@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#9C27E8</color>
+    <color name="colorPrimaryDark">#9C27E8</color>
     <color name="colorAccent">#FF4081</color>
     <color name="disabledButton">#A8A8A8</color>
+    <color name="purpleRed">#9C27E8</color>
+    <color name="ebellePurple">#660066</color>
+    <color name="disabledDays">#f90c0c</color>
+    <color name="tabbColor">#000000</color>
 </resources>

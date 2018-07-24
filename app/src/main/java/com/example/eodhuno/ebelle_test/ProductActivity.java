@@ -54,6 +54,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private void addNewProduct(){
         String productName = ProductName.getText().toString();
+        int productImage = 0;
         String productDescr = ProductDescr.getText().toString();
         int productQty = Integer.parseInt(ProdQuantity.getText().toString());
         int productUnitPrice = Integer.parseInt(ProdUnitPrice.getText().toString());
@@ -91,7 +92,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
         }
 
-        if(mDatabase.addProducts(productName,productDescr,productQty,productUnitPrice,productReorderLevel,productServices,productAvailable)){
+        if(mDatabase.addProducts(productImage,productName,productDescr,productQty,productUnitPrice,productReorderLevel,productServices,productAvailable)){
             Toast.makeText(this,"Product added successfully", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this,"Product not created successfully", Toast.LENGTH_SHORT).show();

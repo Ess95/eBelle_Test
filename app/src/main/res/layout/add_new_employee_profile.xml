@@ -7,21 +7,19 @@
     android:layout_height="match_parent"
     android:layout_weight="4">
 
-
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="15dp">
+        android:layout_margin="10dp">
 
         <TextView
             android:id="@+id/BasicInfo_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Basic Information"
-            android:textAlignment="center"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textAlignment="textStart"
+            android:textStyle="bold"
+            style="@style/smallText"
             android:textColor="@color/colorPrimaryDark" />
 
         <ImageView
@@ -35,87 +33,103 @@
 
         <EditText
             android:id="@+id/EmpFirstName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/EmpProfilePicture"
-            android:hint="First Name" />
+            android:drawableStart="@drawable/person"
+            android:drawablePadding="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:hint="First Name"
+            android:ems="10"
+            android:inputType="textPersonName"
+            style="@style/font_light"/>
 
         <EditText
             android:id="@+id/EmpLastName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/EmpProfilePicture"
-            android:layout_marginLeft="50dp"
-            android:layout_toRightOf="@+id/EmpFirstName"
-            android:hint="Last Name" />
-
-        <LinearLayout
-            android:id="@+id/Empgender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/EmpFirstName"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
+            android:hint="Last Name"
+            android:drawableStart="@drawable/person"
+            android:drawablePadding="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            style="@style/font_light"/>
 
-            <Button
-                android:id="@+id/Female_Image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/disabledButton"
-                android:drawableTop="@drawable/gender_female"
-                android:text="@string/female" />
+        <RadioGroup
+        android:id="@+id/genderRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/EmpLastName"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="16dp"
-                android:text="or"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorPrimaryDark" />
+        <RadioButton
+            android:id="@+id/femaleRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/gender"
+            android:drawablePadding="15dp"
+            android:paddingEnd="15dp"
+            android:text="@string/female"
+            style="@style/smallText"/>
 
+        <RadioButton
+            android:id="@+id/maleRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/gender"
+            android:drawablePadding="15dp"
+            android:text="@string/male"
+            style="@style/smallText"
+            android:paddingLeft="15dp"/>
+    </RadioGroup>
 
-            <Button
-                android:id="@+id/Male_Image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/disabledButton"
-                android:drawableTop="@drawable/gender_male"
-                android:text="@string/male" />
-        </LinearLayout>
 
         <TextView
             android:id="@+id/EmpcontactInfo_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Empgender"
+            android:layout_below="@+id/genderRadioGroup"
             android:layout_margin="5dp"
             android:text="Contact Information"
-            android:textAlignment="center"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorPrimary" />
+            android:textAlignment="textStart"
+            android:textStyle="bold"
+            style="@style/smallText"
+            android:textColor="@color/colorPrimaryDark" />
 
 
         <EditText
             android:id="@+id/EmpContactNo_editText"
-            android:layout_width="154dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/contact_number"
+            android:drawablePadding="15dp"
             android:layout_below="@+id/EmpcontactInfo_text_view"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
             android:hint="Contact No."
             android:inputType="phone" />
 
         <EditText
             android:id="@+id/EmpEmail_editText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/EmpcontactInfo_text_view"
-            android:layout_toRightOf="@+id/EmpContactNo_editText"
+            android:drawableStart="@drawable/email_address"
+            android:drawablePadding="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@+id/EmpContactNo_editText"
             android:hint="Email"
             android:inputType="textEmailAddress" />
 
@@ -123,11 +137,12 @@
             android:id="@+id/EmpInfo_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/EmpContactNo_editText"
+            android:layout_below="@id/EmpEmail_editText"
             android:layout_marginTop="5dp"
             android:text="Employment Information"
-            android:textAlignment="center"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textAlignment="textStart"
+            style="@style/smallText"
+            android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark" />
 
         <TextView
@@ -135,34 +150,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/EmpServices_spinner"
-            android:text="Services" />
+            android:text="Employee Service"
+            android:textSize="17sp"
+            style="@style/font_light"/>
 
         <Spinner
+
             android:id="@+id/EmpServices_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/EmpInfo_text_view"
-            android:layout_toRightOf="@id/EmpServices_text_view"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="180dp"
+            android:layout_marginEnd="27dp"
             android:paddingLeft="50dp"
-            android:entries="@array/ProductServicesSpinnerItems"
             android:text="Services" />
 
         <TextView
             android:id="@+id/EmpSalary_text_view"
+            style="@style/font_light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/EmpServices_text_view"
-            android:layout_marginTop="5dp"
-            android:text="Salary Method" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="140dp"
+            android:textSize="17sp"
+            android:text="Choose Salary Method" />
 
         <Spinner
             android:id="@+id/SalaryMethod_Spinner"
-            android:layout_width="wrap_content"
+            android:layout_width="142dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/EmpServices_text_view"
-            android:entries="@array/paymentMethods"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/EmpSalary_text_view">
+            android:layout_alignEnd="@+id/EmpServices_spinner"
+            android:layout_alignTop="@+id/EmpSalary_text_view"
+            android:entries="@array/paymentMethods">
 
         </Spinner>
 
@@ -171,9 +192,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/SalaryMethod_Spinner"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="17sp"
             android:text="Access Rights"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            style="@style/smallText"
+            android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark" />
 
         <RadioGroup
@@ -209,7 +231,6 @@
                     android:onClick="onRadioButtonClicked"
                     android:textAlignment="center"/>
 
-
         </RadioGroup>
 
         <Button
@@ -218,8 +239,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/empAccessRightGroup"
             android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
             android:padding="5dp"
-            android:text="Add" />
+            style="@style/normalRoundButton"
+            android:text="Add Employee" />
     </RelativeLayout>
 
 </LinearLayout>

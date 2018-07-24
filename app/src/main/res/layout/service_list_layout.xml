@@ -15,8 +15,7 @@
         android:id="@+id/containerLayout"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:orientation="vertical"
-        android:background="@color/colorPrimary">
+        android:orientation="vertical">
     </LinearLayout>
 
 

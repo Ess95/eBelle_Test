@@ -1,4 +1,4 @@
-package SalonAdapter;
+/**package SalonAdapter;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -126,3 +126,4 @@ public class CardViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.itemLoading = false;
     }
 }
+**/

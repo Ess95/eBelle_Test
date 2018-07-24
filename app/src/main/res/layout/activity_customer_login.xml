@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ProgressBar
+        android:id="@+id/loginProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
+
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Contact_et"
+            android:drawableStart="@drawable/email_address"
+            android:drawablePadding="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="250dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            style="@style/font_light"
+            />
+
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/usernameEditText"
+            android:drawableStart="@drawable/ic_password_24px"
+            android:layout_centerInParent="true"
+            android:drawablePadding="15dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:hint="Password e.g.esSie23*"
+            style="@style/font_light"/>
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="LOGIN"
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/passwordEditText"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            style="@style/normalRoundButton"/>
+
+    <TextView
+        android:id="@+id/passwordRecovery"
+        android:text="Forgot Password?"
+        style="@style/smallText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginButton"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:textAlignment="center"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/ebellePurple"
+        android:letterSpacing="@android:integer/status_bar_notification_info_maxnum"/>
+
+
+
+</RelativeLayout>

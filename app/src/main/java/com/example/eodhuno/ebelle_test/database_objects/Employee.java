@@ -3,13 +3,12 @@ package com.example.eodhuno.ebelle_test.database_objects;
 import java.util.ArrayList;
 
 public class Employee {
-    int EmpID, Emp_PhoneNo, EmpAccessRight, empRating, Emp_Services,empAvailability;
-    byte [] Emp_Image;
-    String Emp_Fname, Emp_Lname, Emp_Gender,Emp_Email, Emp_ModeOfPay;
+    int EmpID,Emp_Image, Emp_PhoneNo, EmpAccessRight, empRating, Emp_Services,empAvailability;
+    String Emp_Fname, Emp_Lname,Emp_Gender,Emp_Email, Emp_ModeOfPay;
 
     public Employee(){}
 
-    public Employee(int empID,byte [] emp_ProfileImage, String emp_Fname, String emp_Lname, String emp_Gender,int emp_PhoneNo,
+    public Employee(int empID, int emp_ProfileImage, String emp_Fname, String emp_Lname, String emp_Gender,int emp_PhoneNo,
                     String emp_Email, String emp_ModeOfPay, int emp_Services, int emp_rating, int empAccessRight, int emp_Availability) {
         EmpID = empID;
         Emp_Image = emp_ProfileImage;
@@ -49,7 +48,7 @@ public class Employee {
         Emp_PhoneNo = emp_PhoneNo;
     }
 
-    public void setEmp_Image(byte[] emp_Image) {
+    public void setEmp_Image(int emp_Image) {
         Emp_Image = emp_Image;
     }
 
@@ -77,7 +76,7 @@ public class Employee {
         Emp_ModeOfPay = emp_ModeOfPay;
     }
 
-    public byte[] getEmp_Image() {
+    public int getEmp_Image() {
         return Emp_Image;
     }
 
@@ -145,6 +144,7 @@ public class Employee {
     public ArrayList<String> getItems(){
         ArrayList<String> itemList = new ArrayList<String>();
         itemList.add(""+getEmpID());
+        itemList.add(""+getEmp_Image());
         itemList.add(getEmp_Fname());
         itemList.add(getEmp_Lname());
         itemList.add(getEmp_Gender());

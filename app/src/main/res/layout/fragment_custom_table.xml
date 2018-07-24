@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gridLinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CustomTableFragment">
+
+
+    <TextView
+        android:id="@+id/titleGridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        style="@style/bigText"/>
+
+    <GridLayout
+        android:id="@+id/customTableGridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </GridLayout>
+</LinearLayout>

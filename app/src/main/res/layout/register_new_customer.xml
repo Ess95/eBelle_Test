@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="15dp"
+    android:layout_weight="1">
+
+
+    <EditText
+        android:id="@+id/CustFname_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/person"
+        android:drawablePadding="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:hint="First Name"
+        android:ems="10"
+        android:inputType="textPersonName"
+        style="@style/font_light"/>
+
+    <EditText
+        android:id="@+id/CustLname_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/person"
+        android:drawablePadding="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@+id/CustFname_et"
+        android:hint="Last Name"
+        android:ems="10"
+        android:inputType="textPersonName"
+        style="@style/font_light"/>
+
+    <!--RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/female"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/male"/>
+    </RadioGroup-->
+
+    <EditText
+        android:id="@+id/Gender_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CustLname_et"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:drawableStart="@drawable/gender"
+        android:drawablePadding="8dp"
+        android:hint="Gender"
+        android:inputType="text"
+        style="@style/font_light"/>
+
+    <EditText
+        android:id="@+id/Contact_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Gender_et"
+        android:drawableStart="@drawable/contact_number"
+        android:drawablePadding="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:hint="Contact No."
+        android:inputType="number"
+        style="@style/font_light"/>
+
+    <EditText
+        android:id="@+id/Email_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Contact_et"
+        android:drawableStart="@drawable/email_address"
+        android:drawablePadding="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        style="@style/font_light"/>
+
+
+    <EditText
+        android:id="@+id/Password_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Email_et"
+        android:drawableStart="@drawable/ic_password_24px"
+        android:drawablePadding="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="Password e.g.esSie23*"
+        style="@style/font_light"/>
+
+    <EditText
+        android:id="@+id/confirmPassword_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Password_et"
+        android:drawableStart="@drawable/ic_password_24px"
+        android:drawablePadding="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:hint="Confirm Password*"
+        android:inputType="textPassword"
+        style="@style/font_light"/>
+
+    <Button
+        android:id="@+id/button_Register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@id/confirmPassword_et"
+        android:text="Register"
+        style="@style/normalRoundButton" />
+
+
+
+    </RelativeLayout>
+
+

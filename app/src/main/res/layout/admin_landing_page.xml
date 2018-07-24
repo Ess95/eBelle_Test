@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminLandingPage"
+    android:background="@android:color/white">
+
+
+            <com.example.ebellecustomcard.CustomWidget
+                android:id="@+id/salonLeaderBoard"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_weight="1"
+                android:elevation="10dp">
+            </com.example.ebellecustomcard.CustomWidget>
+
+            <com.example.ebellecustomcard.CustomWidget
+                android:id="@+id/appointmentOverviewWidget"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_weight="1"
+                android:elevation="10dp">
+            </com.example.ebellecustomcard.CustomWidget>
+
+            <com.example.ebellecustomcard.CustomWidget
+                android:id="@+id/inventoryWarningWidget"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:elevation="10dp"
+                android:layout_weight="1">
+            </com.example.ebellecustomcard.CustomWidget>
+
+        </LinearLayout>

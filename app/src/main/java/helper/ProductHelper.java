@@ -34,11 +34,12 @@ public class ProductHelper {
                         productCursor.getInt(0),
                         productCursor.getString(1),
                         productCursor.getString(2),
-                        productCursor.getInt(3),
+                        productCursor.getString(3),
                         productCursor.getInt(4),
                         productCursor.getInt(5),
                         productCursor.getInt(6),
-                        productCursor.getInt(7)
+                        productCursor.getInt(7),
+                        productCursor.getInt(8)
                 ));
             }
             while (productCursor.moveToNext());
@@ -183,7 +184,7 @@ public class ProductHelper {
         return currProductAtReorderLevel;
     }
 
-    public static ArrayList<Product> getProductByService(int serviceId) throws Exception {
+    public static ArrayList<Product> getProductsByServiceID(int serviceId) throws Exception {
         ArrayList<Product> productArrayList = getAllProducts();
         ArrayList<Product> currServiceOfProduct = new ArrayList<>();
 
@@ -221,15 +222,12 @@ public class ProductHelper {
         return productUsage;
     }
 
-
-
-    /**public static ArrayList<Product> getProductByCategory(int categoryId) throws Exception {
+    public static ArrayList<Product> getProductByCategory(int categoryId) throws Exception {
         ArrayList<Service> services = ServiceHelper.getServiceByCategoryId(categoryId);
         ArrayList<Product> currCategoryOfProduct = new ArrayList<>();
 
-        ArrayList<Integer> serviceCategoryIDs = new  ArrayList<>();
+        ArrayList<Integer> serviceCategoryIDs = new ArrayList<>();
         for(Service service:services){
-            Log.d("JJJJJJJ","SERVICE ID :"+service.getServID());
             serviceCategoryIDs.add(service.getServID());
         }
 
@@ -237,11 +235,10 @@ public class ProductHelper {
         for (Integer i : serviceCategoryIDs) {
             ArrayList<Product> productArrayList = new ArrayList<Product>();
             try{
-                productArrayList = getProductByService(i);
+                //productArrayList = getProductByService(i);
             }catch(Exception e){
                 //do nothing
             }
-
             if(productArrayList.size() > 0){
                 currCategoryOfProduct.addAll(productArrayList);
                 found = true;
@@ -249,8 +246,10 @@ public class ProductHelper {
 
         }
         if (!found) {
-            throw new Exception("*ODHUNO* NO APPOINTMENTS WITH CATEGORY_ID " + categoryId + " FOUND");
+            throw new Exception("*ODHUNO* NO PRODUCTS WITH CATEGORY_ID " + categoryId + " FOUND");
         }
         return currCategoryOfProduct;
-    }**/
+    }
+
+
 }

@@ -1,59 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/new_product_image_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="16dp"
-    android:orientation="vertical"
     android:layout_weight="3">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/CategoryimageView"
-        android:layout_width="352dp"
-        android:layout_height="154dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:padding="10dp"
         android:scaleType="centerCrop"
-        android:src="@color/colorAccent" />
+        android:src="@color/ebellePurple" />
 
     <EditText
         android:id="@+id/imageTextView"
+        android:layout_below="@+id/CategoryimageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="ImageViewText"
-        android:layout_marginTop="15dp"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColor="@color/colorPrimaryDark" />
+        android:layout_marginTop="20dp"
+        android:drawablePadding="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="text"
+        style="@style/font_light"/>
 
 
     <EditText
         android:id="@+id/Category_name_edit_text"
+        android:layout_below="@+id/imageTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:hint="Category Name"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColor="@color/colorPrimaryDark" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="text"
+        style="@style/font_light" />
 
 
     <EditText
         android:id="@+id/Category_description_edit_text"
+        android:layout_below="@+id/Category_name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Category Description"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_centerHorizontal="true"
+        style="@style/font_light"/>
 
     <Button
         android:id="@+id/AddCategory_button"
-        android:layout_width="match_parent"
+        android:layout_below="@id/Category_description_edit_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
         android:padding="10dp"
-        android:text="Add Category" />
+        android:text="Add Category"
+        style="@style/normalRoundButton"/>
 
 
-</LinearLayout>
+</RelativeLayout>

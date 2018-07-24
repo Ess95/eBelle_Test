@@ -3,13 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".individualServiceFragment"
-    android:background="@color/colorAccent">
+    tools:context=".individualServiceFragment">
 
-    <com.example.ebellecustomcard.CustomWidget
-        android:id="@+id/individualServiceListCustomItem"
-        android:layout_width="match_parent"
-        android:layout_height="900dp">
-    </com.example.ebellecustomcard.CustomWidget>
+    <RelativeLayout
+        android:id="@+id/individualServiceContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.example.ebellecustomcard.CustomWidget
+            android:id="@+id/individualServiceListCustomItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.example.ebellecustomcard.CustomWidget>
+    </RelativeLayout>
+
 
 </LinearLayout>

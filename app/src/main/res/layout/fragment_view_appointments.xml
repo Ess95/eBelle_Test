@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ViewAppointmentsFragment">
+
+    <android.support.v7.widget.Toolbar
+    android:id="@+id/viewAppointmentFragmentToolbar"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@drawable/login_background_selector"
+    app:layout_scrollFlags="scroll|enterAlways"
+    app:title="View Appointment"
+    app:titleTextColor="@android:color/white"
+    app:titleTextAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+    app:titleMarginStart="15dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            app:cardMaxElevation="10dp"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="5dp">
+            <RelativeLayout
+                android:id="@+id/apptViewFragmentContainerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+    </ScrollView>
+</LinearLayout>

@@ -5,6 +5,7 @@ import android.database.Cursor;
 
 import com.example.eodhuno.ebelle_test.DatabaseManager;
 import com.example.eodhuno.ebelle_test.database_objects.Employee;
+import com.example.eodhuno.ebelle_test.database_objects.Service;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class EmployeeHelper {
             do {
                 allEmployees.add(new Employee(
                         employeeProfilesCursor.getInt(0),
-                        employeeProfilesCursor.getBlob(1),
+                        employeeProfilesCursor.getInt(1),
                         employeeProfilesCursor.getString(2),
                         employeeProfilesCursor.getString(3),
                         employeeProfilesCursor.getString(4),

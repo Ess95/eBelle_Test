@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddEmployeeFragement">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/NavBasicInfo_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Basic Information"
+            android:textAlignment="textStart"
+            android:textStyle="bold"
+            style="@style/smallText"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <ImageView
+            android:id="@+id/NavEmpProfilePicture"
+            android:layout_width="291dp"
+            android:layout_height="68dp"
+            android:clickable="true"
+            android:layout_below="@+id/NavBasicInfo_text_view"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_account_profileimage" />
+
+        <EditText
+            android:id="@+id/NavEmpFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/NavEmpProfilePicture"
+            android:drawableStart="@drawable/person"
+            android:drawablePadding="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:hint="First Name"
+            android:ems="10"
+            android:inputType="textPersonName"
+            style="@style/font_light"/>
+
+        <EditText
+            android:id="@+id/NavEmpLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/NavEmpFirstName"
+            android:hint="Last Name"
+            android:drawableStart="@drawable/person"
+            android:drawablePadding="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            style="@style/font_light"/>
+
+        <RadioGroup
+            android:id="@+id/NavGenderRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/NavEmpLastName"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal">
+
+            <RadioButton
+                android:id="@+id/NavFemaleRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/gender"
+                android:drawablePadding="15dp"
+                android:paddingEnd="15dp"
+                android:text="@string/female"
+                style="@style/smallText"/>
+
+            <RadioButton
+                android:id="@+id/NavMaleRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/gender"
+                android:drawablePadding="15dp"
+                android:text="@string/male"
+                style="@style/smallText"
+                android:paddingLeft="15dp"/>
+        </RadioGroup>
+
+
+        <TextView
+            android:id="@+id/NavEmpcontactInfo_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/NavGenderRadioGroup"
+            android:layout_margin="5dp"
+            android:text="Contact Information"
+            android:textAlignment="textStart"
+            android:textStyle="bold"
+            style="@style/smallText"
+            android:textColor="@color/colorPrimaryDark" />
+
+
+        <EditText
+            android:id="@+id/NavEmpContactNo_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/contact_number"
+            android:drawablePadding="15dp"
+            android:layout_below="@+id/NavEmpcontactInfo_text_view"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:hint="Contact No."
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/NavEmpEmail_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/email_address"
+            android:drawablePadding="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@+id/NavEmpContactNo_editText"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/NavEmpInfo_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/NavEmpEmail_editText"
+            android:layout_marginTop="5dp"
+            android:text="Employment Information"
+            android:textAlignment="textStart"
+            style="@style/smallText"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/NavEmpServices_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/NavEmpInfo_text_view"
+            android:text="Employee Service"
+            android:textSize="17sp"
+            style="@style/font_light"/>
+
+        <Spinner
+
+            android:id="@+id/NavEmpServices_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/NavEmpInfo_text_view"
+            android:layout_toRightOf="@+id/NavEmpServices_text_view"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="27dp"
+            android:paddingLeft="50dp"
+            android:text="Services" />
+
+        <TextView
+            android:id="@+id/NavEmpSalary_text_view"
+            style="@style/font_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/NavEmpServices_text_view"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="17sp"
+            android:text="Choose Salary Method" />
+
+        <Spinner
+            android:id="@+id/NavSalaryMethod_Spinner"
+            android:layout_width="142dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="7dp"
+            android:layout_below="@+id/NavEmpServices_text_view"
+            android:layout_toRightOf="@+id/NavEmpSalary_text_view"
+            android:entries="@array/paymentMethods">
+
+        </Spinner>
+
+        <TextView
+            android:id="@+id/NavEmpAccessRight_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/NavSalaryMethod_Spinner"
+            android:layout_marginTop="7dp"
+            android:text="Access Rights"
+            style="@style/smallText"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <RadioGroup
+            android:id="@+id/NavempAccessRightGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/NavEmpAccessRight_text_view"
+            android:gravity="center_horizontal"
+            android:padding="10dp">
+
+            <RadioButton
+                android:id="@+id/NavnoAccessRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/None"
+                android:onClick="onRadioButtonClicked"
+                android:textAlignment="center" />
+
+            <RadioButton
+                android:id="@+id/NavreceptionistAccessRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Receptionist"
+                android:onClick="onRadioButtonClicked"
+                android:textAlignment="center"/>
+
+            <RadioButton
+                android:id="@+id/NavfinanceAccessRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Financial_Manager"
+                android:onClick="onRadioButtonClicked"
+                android:textAlignment="center"/>
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/NavaddEmployee_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/NavempAccessRightGroup"
+            android:layout_centerHorizontal="true"
+            android:padding="5dp"
+            style="@style/normalRoundButton"
+            android:text="Add Employee" />
+    </RelativeLayout>
+
+
+</FrameLayout>

@@ -2,90 +2,124 @@ package com.example.eodhuno.ebelle_test;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.example.ebellecustomcard.CustomWidget;
+import com.example.eodhuno.ebelle_test.database_objects.Employee;
 import com.example.eodhuno.ebelle_test.database_objects.Employee;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeAdapter extends ArrayAdapter<Employee> {
+public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHolder>{
 
-    Context ctx;
-    int layoutResID;
-    List<Employee> employeeList;
-    DatabaseManager mDatabase;
+    public List<Employee> employeeListItems;
+    Context sCtx;
+    Employee selectedEmployee = null;
+    EmployeeSelectedListener listener;
+    listEmployeeFragment parentEmployeeFrag;
 
-    public EmployeeAdapter(Context ctx, int layoutResID, List<Employee> employeeList,DatabaseManager mDatabase) {
-        super(ctx, layoutResID, employeeList);
-        this.ctx = ctx;
-        this.layoutResID = layoutResID;
-        this.employeeList = employeeList;
-        this.mDatabase = mDatabase;
+    public EmployeeAdapter(List<Employee> employeeListItems,Context sCtx, listEmployeeFragment parentFrag, EmployeeSelectedListener lis) {
+        this.employeeListItems = new ArrayList<Employee>();
+        if(parentFrag.getFinalSelectedEmployee() != null){
+            this.employeeListItems.clear();
+            this.employeeListItems.add(parentFrag.getFinalSelectedEmployee());
+            for(Employee currEmployee:employeeListItems){
+                if(currEmployee.getEmpID() != parentFrag.getFinalSelectedEmployee().getEmpID()){
+                    this.employeeListItems.add(currEmployee);
+                }
+            }
+
+        }else{
+            this.employeeListItems = employeeListItems;
+        }
+        this.sCtx = sCtx;
+        this.listener = lis;
+        this.parentEmployeeFrag = parentFrag;
+
     }
 
     @NonNull
     @Override
-    //This method binds data to the view and returns the view
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater layoutInflater = LayoutInflater.from(ctx);
-
-        View view = layoutInflater.inflate(layoutResID,null);
-
-        ImageView imgProfile = view.findViewById(R.id.ViewEProfilePicture);
-        TextView textViewFname = view.findViewById(R.id.textViewEFirstName);
-        TextView textViewLname = view.findViewById(R.id.textViewELastName);
-        TextView textgender = view.findViewById(R.id.textViewEGender);
-        TextView textViewContact = view.findViewById(R.id.textEViewContact);
-        TextView textViewEmail = view.findViewById(R.id.textEViewEmail);
-        TextView textViewServices = view.findViewById(R.id.textViewEServices);
-        TextView textViewSalaryMethod = view.findViewById(R.id.textViewESalaryMethod);
-
-
-        final Employee employee= employeeList.get(position);
-
-        //imgProfile.setImageResource(R.id.ViewEProfilePicture);
-        textViewFname.setText(employee.getEmp_Fname());
-        textViewLname.setText(employee.getEmp_Lname());
-        textgender.setText(employee.getEmp_Gender());
-        textViewContact.setText(String.valueOf(employee.getEmp_PhoneNo()));
-        textViewEmail.setText(employee.getEmp_Email());
-        textViewServices.setText(employee.getEmp_Services());
-        textViewSalaryMethod.setText(employee.getEmp_ModeOfPay());
-
-        /**view.findViewById(R.id.button_Delete_Emp).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });**/
-
-        view.findViewById(R.id.button_Delete_Emp).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteEmployee(employee);
-            }
-        });
-        view.findViewById(R.id.button_Edit_Emp).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    updateEmployee(employee);            }
-        });
-
-        return view;
-
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.employee_list_item,parent,false);
+        return new ViewHolder(view);
     }
 
-    private void updateEmployee(Employee employee) {
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Employee employee = employeeListItems.get(position);
 
+        if(parentEmployeeFrag.getFinalSelectedEmployee() != null && employee.getEmpID() == parentEmployeeFrag.getFinalSelectedEmployee().getEmpID() ){
+            holder.stylistCustomWidget.getIconTextImageButton(0,0).setVisibility(View.VISIBLE);
+        }else{
+            holder.stylistCustomWidget.getIconTextImageButton(0,0).setVisibility(View.INVISIBLE);
+        }
+        holder.stylistCustomWidget.setBigText(1,1,employee.getEmp_Fname() + " " + employee.getEmp_Lname());
+        holder.stylistCustomWidget.setRating(2,0,employee.getEmpRating());
     }
 
-    private void deleteEmployee(Employee employee) {
+    @Override
+    public int getItemCount() {
+        return employeeListItems.size();
+    }
+
+    private void triggerEmployeeSelectedListener(Employee emp){
+        listener.onEmployeeSelected(emp);
+    }
+
+    public interface EmployeeSelectedListener{
+        public void onEmployeeSelected(Employee selectedEmployee);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        public CustomWidget stylistCustomWidget;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int id = getAdapterPosition();
+                    triggerEmployeeSelectedListener(employeeListItems.get(id));
+                }
+            });
+
+            stylistCustomWidget = (CustomWidget) itemView.findViewById(R.id.employeeListCustomItem);
+            stylistCustomWidget.removeTitle();
+            stylistCustomWidget.removeProfilePic();
+            stylistCustomWidget.removeTitleDescription();
+            stylistCustomWidget.removeInfoButton();
+            stylistCustomWidget.removeDeleteButton();
+            stylistCustomWidget.removeEditButton();
+            stylistCustomWidget.removeShrinkButton();
+            stylistCustomWidget.setColumnNumber(3);
+            stylistCustomWidget.addColumnSpans(new int[]{0,0,1,3},
+                    new int[]{1,1,1,2},
+                    new int[]{2,0,1,3});
+
+            stylistCustomWidget.addViews(22,
+                    2,1,
+                    9);
+
+            stylistCustomWidget.addAlignement(0,0, "right");
+            stylistCustomWidget.setIconText(0,0, "");
+            stylistCustomWidget.setIconTextImage(0,0, R.drawable.checkbox_marked);
+            stylistCustomWidget.getIconTextImageButton(0,0).setVisibility(View.INVISIBLE);
+            stylistCustomWidget.getIconTextTextView(0,0).setVisibility(View.INVISIBLE);
+            stylistCustomWidget.addAlignement(1,0, "left");
+            stylistCustomWidget.addAlignement(1,1, "left");
+            stylistCustomWidget.addAlignement(2,0, "right");
+
+
+        }
+
+
     }
 
 }

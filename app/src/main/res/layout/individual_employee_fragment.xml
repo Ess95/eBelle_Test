@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".individualEmployeeFragment">
+
+    <RelativeLayout
+        android:id="@+id/individualEmployeeContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.example.ebellecustomcard.CustomWidget
+            android:id="@+id/individualEmployeeListCustomItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.example.ebellecustomcard.CustomWidget>
+    </RelativeLayout>
+
+
+</LinearLayout>

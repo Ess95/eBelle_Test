@@ -41,9 +41,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public List<CustomerPaymentHistory>customerPaymentHistoryList;
 
     public static final String DATABASE_NAME = "eBelleSalon";
-    public static final int DATABASE_VERSION = 34;
+    public static final int DATABASE_VERSION = 3;
 
     //Table names
+    public static final String EMPLOYEES_USER_PASSWORDS = "EMPL_PASSWORDS";
     public static final String CUSTOMER = "CUSTOMER";
     public static final String CUST_HISTORY_TABLE_NAME = "CUST_HISTORY";
     public static final String EMPLOYEE_TABLE_NAME = "EMPLOYEES";
@@ -54,17 +55,27 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public static final String FULLY_BOOKED_DAYS = "BOOKED_DAYS";
     public static final String FULLY_BOOKED_HOURS = "BOOKED_HOURS";
     public static final String TIME_INTERVALS = "INTERVALS";
-    public static final String SALON_PAYMENT_TABLE_NAME = "SRV_PAYMENT";
     public static final String ACCESS_RIGHTS = "ACCESS_RIGHTS";
+    public static final String CUSTOMER_IMAGES = "CUST_IMAGES";
+    public static final String EMPLOYEE_IMAGES = "EMPLOYEE_IMAGES";
+    public static final String PRODUCT_IMAGES = "PRODUCT_IMAGES";
+    public static final String SERVICE_IMAGES = "SERVICE_IMAGES";
+    public static final String CATEGORY_IMAGES = "CATEGORY_IMAGES";
+
+
+    //Employee Passwords
+    public static final String EMP_PASSWORD_ID = "ID";
+    public static final String EMP_USER_NAME = "USERNAME";
+    public static final String EMP_USER_PASS = "PASSWORD";
+    public static final String EMP_USER_ID_FK = "USER_ID_FK";
 
     //Access Rights
     public static final String AR_ID = "ID";
     public static final String AR_DESCR = "RIGHTS";
-    public static final String AR_USER_ID = "USER";
-
 
     //Customers Table
     public static final String CUSTOMER_ID = "ID";
+    public static final String CUSTOMER_IMG = "IMG_ID";
     public static final String CUSTOMER_FNAME = "F_NAME";
     public static final String CUSTOMER_LNAME = "L_NAME";
     public static final String CUSTOMER_GENDER = "GENDER";
@@ -75,15 +86,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     //Customer Payments/History Table
     public static final String CUST_HISTORY_ID = "HIST_ID";
-    public static final String CUST_HISTORY_DATE = "DATE_OF_PAYM";
-    public static final String CUST_HISTORY_SERVICES = "SERVICES";
-    public static final String CUST_HISTORY_BEAUTICIAN = "BEAUTICIAN";
-    public static final String CUST_HISTORY_MODE_OF_PAY = "MODE_OF_PAY";
-    public static final String CUST_HISTORY_CHARGES = "TOTAL_CHARGES";
+    public static final String CUST_HISTORY_APPT_ID = "APPT_ID";
+    public static final String CUST_HISTORY_DATE = "DATE_OF_PAY";
 
     //Employees Table
     public static final String EMPLOYEE_ID = "EMP_ID";
-    public static final String EMPLOYEE_IMAGE = "EMP_IMAGE";
+    public static final String EMPLOYEE_IMAGE = "IMG_ID";
     public static final String EMPLOYEE_FNAME = "EMP_FNAME";
     public static final String EMPLOYEE_LNAME = "EMP_LNAME";
     public static final String EMPLOYEE_GENDER = "GENDER";
@@ -95,17 +103,16 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public static final String EMPLOYEE_ACCESS_RIGHT = "ACCESS_RIGHT";
     public static final String EMPLOYEE_AVAILABILITY = "AVAILABILITY";
 
-
-
     //Categories Table
     public static final String CATEGORY_ID = "CAT_ID";
-    public static final String CATEGORY_IMG = "CAT_IMG";
+    public static final String CATEGORY_IMG = "IMG_ID";
     public static final String CATEGORY_NAME = "CAT_NAME";
     public static final String CATEGORY_DESCRIPTION = "DESCR";
 
     //Services_Table
     public static final String SERV_ID = "SERV_ID";
     public static final String CATEGORY_ID_FK = "CAT_ID";
+    public static final String SERV_IMG = "IMG_ID";
     public static final String SERV_NAME = "SERV_NAME";
     public static final String SERV_PRICE = "PRICE";
     public static final String SERV_DURATION = "DURATION";
@@ -114,6 +121,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     //Products Table
     public static final String PRODUCT_ID = "PROD_ID";
+    public static final String PRODUCT_IMG_ID = "IMG_ID";
     public static final String SERVICE_ID_FK = "SERV_ID";
     public static final String PRODUCT_NAME = "PROD_NAME";
     public static final String PRODUCT_DESCR = "PRODUCT_DESCR";
@@ -154,43 +162,80 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public static final String START_TIME = "START_TIME";
     public static final String END_TIME = "END_TIME";
 
-    //Salon Payments Table
-    public static final String SALON_PAYMENT_SERVPAY_ID = "SERV_PAYM_ID";
-    public static final String SALON_PAYMENT_CUSTID_FK = "CUST_HISTORY_ID";
-    public static final String SALON_PAYMENT_SERVICES = "SERVICES";
-    public static final String SALON_PAYMENT_BEAUTICIAN = "BEAUTICIAN";
-    public static final String SALON_PAYMENT_MODE_OF_PAY = "MODE_OF_PAYM";
-    public static final String SALON_PAYMENT_TOTAL_CHARGES= "TOTAL_CHARGES";
+    //Application Images
+    //CATEGORY
+    public static final String CAT_IMG_ID = "ID";
+    public static final String CAT_IMG_LOCATION = "IMG_URL";
 
-    //Creating tables in DB
+    //SERVICES
+    public static final String SRV_IMG_ID = "ID";
+    public static final String SRV_IMG_LOCATION = "IMG_URL";
+
+    //PRODUCTS
+    public static final String PROD_IMG_ID = "ID";
+    public static final String PROD_IMG_LOCATION = "IMG_URL";
+
+    //EMPLOYEE
+    public static final String EMP_IMG_ID = "ID";
+    public static final String EMP_IMG_LOCATION = "IMG_URL";
+
+    //CUSTOMER
+    public static final String CUST_IMG_ID = "ID";
+    public static final String CUST_IMG_LOCATION = "IMG_URL";
+
+    private static final String CREATE_CATEGORY_IMAGES_TABLE = " CREATE TABLE  "+CATEGORY_IMAGES+" (\n" +
+            "   "+CAT_IMG_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "   "+CAT_IMG_LOCATION+" TEXT NOT NULL\n" + ");";
+
+    private static final String CREATE_SERVICE_IMAGES_TABLE = " CREATE TABLE  "+SERVICE_IMAGES+" (\n" +
+            "   "+SRV_IMG_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "   "+SRV_IMG_LOCATION+" TEXT NOT NULL\n" + ");";
+
+    private static final String CREATE_PRODUCT_IMAGES_TABLE = " CREATE TABLE  "+PRODUCT_IMAGES+" (\n" +
+            "   "+PROD_IMG_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "   "+PROD_IMG_LOCATION+" TEXT NOT NULL\n" + ");";
+
+    private static final String CREATE_EMPLOYEE_IMAGES_TABLE = " CREATE TABLE  "+EMPLOYEE_IMAGES+" (\n" +
+            "   "+EMP_IMG_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "   "+EMP_IMG_LOCATION+" TEXT NOT NULL\n" + ");";
+
+    private static final String CREATE_CUSTOMER_IMAGES_TABLE = " CREATE TABLE  "+CUSTOMER_IMAGES+" (\n" +
+            "   "+CUST_IMG_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "   "+CUST_IMG_LOCATION+" TEXT NOT NULL\n" + ");";
+
+    private static final String CREATE_EMP_PASSWORDS_TABLE = " CREATE TABLE  "+EMPLOYEES_USER_PASSWORDS+" (\n" +
+            "   "+EMP_PASSWORD_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "   "+EMP_USER_ID_FK+" INTEGER NOT NULL, \n" +
+            "   "+EMP_USER_NAME+" TEXT NOT NULL, \n" +
+            "   "+EMP_USER_PASS+" TEXT NOT NULL, \n" +
+            "       FOREIGN KEY ("+EMP_USER_ID_FK+") REFERENCES "+EMPLOYEE_TABLE_NAME+" ("+EMPLOYEE_ID+"))";
+
     private static final String CREATE_ACCESS_RIGHT_TABLE = " CREATE TABLE  "+ACCESS_RIGHTS+" (\n" +
             "   "+AR_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "   "+AR_DESCR+" TEXT NOT NULL\n" + ");";
 
     private static final String CREATE_CUSTOMER_TABLE = " CREATE TABLE  "+CUSTOMER+" (\n" +
             "   "+CUSTOMER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "   "+CUSTOMER_IMG+" INTEGER NOT NULL, \n"+
             "   "+CUSTOMER_FNAME+" TEXT NOT NULL, \n" +
             "   "+CUSTOMER_LNAME+" TEXT NOT NULL, \n" +
             "   "+CUSTOMER_GENDER+" TEXT NOT NULL, \n" +
             "   "+CUSTOMER_PHONE_NO+" INTEGER NOT NULL, \n" +
             "   "+CUSTOMER_EMAIL+" TEXT NOT NULL, \n" +
             "   "+CUSTOMER_PASSWORD+" TEXT NOT NULL, \n" +
-            "   "+CUSTOMER_CONFIRM_PASSWORD+" TEXT NOT NULL\n" + ");";
+            "   "+CUSTOMER_CONFIRM_PASSWORD+" TEXT NOT NULL,\n" +
+            "       FOREIGN KEY ("+CUSTOMER_IMG+") REFERENCES "+CUSTOMER_IMAGES+" ("+CUST_IMG_ID+"))";
+
 
     private static final String CREATE_CUST_HISTORY_TABLE = " CREATE TABLE  "+CUST_HISTORY_TABLE_NAME+" (\n" +
             "   "+CUST_HISTORY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-            "   "+CUST_HISTORY_DATE+" INTEGER NOT NULL, " +
-            "   "+CUST_HISTORY_SERVICES+" TEXT NOT NULL, \n" +
-            "   "+CUST_HISTORY_BEAUTICIAN+" TEXT NOT NULL, \n" +
-            "   "+CUST_HISTORY_MODE_OF_PAY+" TEXT NOT NULL, \n" +
-            "   "+CUST_HISTORY_CHARGES+" INTEGER NOT NULL, " +
-            "       FOREIGN KEY ("+CUST_HISTORY_CHARGES+") REFERENCES "+APPT_TABLE_NAME+" ("+TOTAL_CHARGES+"), \n " +
-            "       FOREIGN KEY ("+CUST_HISTORY_SERVICES+") REFERENCES "+SERVICES_TABLE_NAME+" ("+SERV_ID+"), \n " +
-            "       FOREIGN KEY ("+CUST_HISTORY_BEAUTICIAN+") REFERENCES "+EMPLOYEE_TABLE_NAME+" ("+EMPLOYEE_ID+"))";
+            "   "+CUST_HISTORY_DATE+" TEXT NOT NULL, " +
+            "   "+CUST_HISTORY_APPT_ID+" INTEGER NOT NULL, \n" +
+            "       FOREIGN KEY ("+CUST_HISTORY_APPT_ID+") REFERENCES "+APPT_TABLE_NAME+" ("+APPT_ID+"))";
 
     private static final String CREATE_EMPLOYEES_TABLE = " CREATE TABLE  "+EMPLOYEE_TABLE_NAME+" (\n" +
             "   "+EMPLOYEE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "   "+EMPLOYEE_IMAGE+" BLOB, \n" +
+            "   "+EMPLOYEE_IMAGE+" INTEGER NOT NULL, \n" +
             "   "+EMPLOYEE_FNAME+" TEXT NOT NULL, \n" +
             "   "+EMPLOYEE_LNAME+" TEXT NOT NULL, \n" +
             "   "+EMPLOYEE_GENDER+" TEXT NOT NULL, \n" +
@@ -201,28 +246,34 @@ public class DatabaseManager extends SQLiteOpenHelper {
             "   "+EMPLOYEE_RATING+" INTEGER NOT NULL, " +
             "   "+EMPLOYEE_ACCESS_RIGHT+" INTEGER NOT NULL, " +
             "   "+EMPLOYEE_AVAILABILITY+" INTEGER NOT NULL, " +
+            "       FOREIGN KEY ("+EMPLOYEE_IMAGE+") REFERENCES "+EMPLOYEE_IMAGES+" ("+EMP_IMG_ID+"), \n" +
             "       FOREIGN KEY ("+EMPLOYEE_ACCESS_RIGHT+") REFERENCES "+ACCESS_RIGHTS+" ("+AR_ID+"), \n" +
             "       FOREIGN KEY ("+EMPLOYEE_SERVICES+") REFERENCES "+SERVICES_TABLE_NAME+" ("+SERV_ID+"))";
 
 
     private static final String CREATE_SERVICE_CAT_TABLE = " CREATE TABLE  "+CATEGORY_TABLE_NAME+" (\n" +
             "   "+CATEGORY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "   "+CATEGORY_IMG+" TEXT NOT NULL, \n" +
+            "   "+CATEGORY_IMG+" INTEGER NOT NULL, \n" +
             "   "+CATEGORY_NAME+" TEXT NOT NULL, \n" +
-            "   "+CATEGORY_DESCRIPTION+" TEXT NOT NULL \n" + ");";
+            "   "+CATEGORY_DESCRIPTION+" TEXT NOT NULL, \n" +
+            "       FOREIGN KEY ("+CATEGORY_IMG+") REFERENCES "+CATEGORY_IMAGES+" ("+CAT_IMG_ID+"))";
+
 
     private static final String CREATE_SERVICES_TABLE = " CREATE TABLE "+SERVICES_TABLE_NAME+" (\n" +
             "   "+SERV_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "   "+SERV_IMG+" INTEGER NOT NULL, \n" +
             "   "+SERV_NAME+" TEXT NOT NULL, \n" +
             "   "+SERV_PRICE+" INTEGER NOT NULL, \n" +
             "   "+SERV_DURATION+" INTEGER NOT NULL, \n" +
             "   "+SERV_DESCRIPTION+" TEXT NOT NULL, \n" +
             "   "+SERV_AVAILABILITY+" INTEGER NOT NULL,\n" +
             "   "+CATEGORY_ID_FK+" INTEGER NOT NULL, " +
+            "   FOREIGN KEY ("+SERV_IMG+") REFERENCES "+SERVICE_IMAGES+" ("+SRV_IMG_ID+"), \n" +
             "   FOREIGN KEY ("+CATEGORY_ID_FK+") REFERENCES "+CATEGORY_TABLE_NAME+" ("+CATEGORY_ID+"))";
 
     private static final String CREATE_PRODUCTS_TABLE = " CREATE TABLE "+PRODUCT_TABLE_NAME+" (\n" +
             "   "+PRODUCT_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "   "+PRODUCT_IMG_ID+" INTEGER NOT NULL, \n" +
             "   "+PRODUCT_NAME+" TEXT NOT NULL, \n" +
             "   "+PRODUCT_DESCR+" TEXT NOT NULL, \n" +
             "   "+PRODUCT_QTY+" INTEGER NOT NULL DEFAULT 0, \n" +
@@ -230,6 +281,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
             "   "+PRODUCT_REORDER_LEVEL+" INTEGER NOT NULL, \n" +
             "   "+PRODUCT_AVAILABILITY+" INTEGER NOT NULL,\n" +
             "   "+SERVICE_ID_FK+" INTEGER NOT NULL, " +
+            "       FOREIGN KEY ("+PRODUCT_IMG_ID+") REFERENCES "+PRODUCT_IMAGES+" ("+PROD_IMG_ID+"), \n" +
             "       FOREIGN KEY ("+SERVICE_ID_FK+") REFERENCES "+SERVICES_TABLE_NAME+" ("+SERV_ID+"))";
 
     private static final String CREATE_APPTS_TABLE = " CREATE TABLE "+APPT_TABLE_NAME+" (\n" +
@@ -275,7 +327,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         Log.d("ENTERS ONCREATE", "FIIIIIIIIRST");
 
+        sqLiteDatabase.execSQL(CREATE_EMP_PASSWORDS_TABLE);
         sqLiteDatabase.execSQL(CREATE_ACCESS_RIGHT_TABLE);
+        sqLiteDatabase.execSQL(CREATE_CATEGORY_IMAGES_TABLE);
+        sqLiteDatabase.execSQL(CREATE_SERVICE_IMAGES_TABLE);
+        sqLiteDatabase.execSQL(CREATE_PRODUCT_IMAGES_TABLE);
+        sqLiteDatabase.execSQL(CREATE_EMPLOYEE_IMAGES_TABLE);
+        sqLiteDatabase.execSQL(CREATE_CUSTOMER_IMAGES_TABLE);
         sqLiteDatabase.execSQL(CREATE_CUSTOMER_TABLE);
         sqLiteDatabase.execSQL(CREATE_CUST_HISTORY_TABLE);
         sqLiteDatabase.execSQL(CREATE_EMPLOYEES_TABLE);
@@ -295,7 +353,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         if( oldVersion != newVersion) {
 
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + EMPLOYEES_USER_PASSWORDS);
             sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ACCESS_RIGHTS);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CATEGORY_IMAGES);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SERVICE_IMAGES);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PRODUCT_IMAGES);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + EMPLOYEE_IMAGES);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CUSTOMER_IMAGES);
             sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CUSTOMER);
             sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CUST_HISTORY_TABLE_NAME);
             sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + EMPLOYEE_TABLE_NAME);
@@ -312,10 +376,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     //CRUD FOR CUSTOMER TABLE
-    public boolean addCustomerProfile(String FirstName, String LastName, String Gender, int PhoneNo, String Email, String Password, String confirmPassword){
+    public boolean addCustomerProfile(int custImage, String FirstName, String LastName, String Gender, int PhoneNo, String Email, String Password, String confirmPassword){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues cv = new ContentValues();
+        cv.put(CUSTOMER_IMG,custImage);
         cv.put(CUSTOMER_FNAME,FirstName);
         cv.put(CUSTOMER_LNAME, LastName);
         cv.put(CUSTOMER_GENDER, Gender);
@@ -333,17 +398,18 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return sqLiteDatabase.rawQuery("SELECT * FROM "+CUSTOMER,null);
     }
 
-    public boolean updateCustomer(int CustID,String FirstName, String LastName,String Gender, int PhoneNo,String Email, String Password, String confirmPassword ){
+    public boolean updateCustomer(int CustID, int custImage, String FirstName, String LastName,String Gender, int PhoneNo,String Email, String Password, String confirmPassword ){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues cv = new ContentValues();
+        cv.put(CUSTOMER_IMG,custImage);
         cv.put(CUSTOMER_FNAME,FirstName);
         cv.put(CUSTOMER_LNAME,LastName);
         cv.put(CUSTOMER_GENDER,Gender);
         cv.put(CUSTOMER_PHONE_NO,String.valueOf(PhoneNo));
         cv.put(CUSTOMER_EMAIL,Email);
         cv.put(CUSTOMER_PASSWORD,Password);
-        cv.put(CUSTOMER_CONFIRM_PASSWORD,Password);
+        cv.put(CUSTOMER_CONFIRM_PASSWORD,confirmPassword);
 
 
         //If the value of the statement is greater than 0, it means the update was successsful.
@@ -357,7 +423,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     //CRUD FOR EMPLOYEE TABLE
-    public boolean addEmployeeProfile(byte[]empImage,String FirstName,String LastName, String Gender, int PhoneNo, String Email,int Services,int rating, String ModeOfPay, int accessRight,int availability){
+    public boolean addEmployeeProfile(int empImage,String FirstName,String LastName, String Gender, int PhoneNo, String Email,int Services,int rating, String ModeOfPay, int accessRight,int availability){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues cv = new ContentValues();
@@ -383,11 +449,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return sqLiteDatabase.rawQuery("SELECT * FROM "+EMPLOYEE_TABLE_NAME, null);
     }
 
-    public boolean updateEmployee(int EmpID, byte[] empProfileImage, String FirstName, String LastName, String Gender, int PhoneNo, String Email,String Services, String ModeOfPay, int accessRight ){
+    public boolean updateEmployee(int EmpID, int empImage,String FirstName,String LastName, String Gender, int PhoneNo, String Email,int Services,int rating, String ModeOfPay, int accessRight,int availability ){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues cv = new ContentValues();
-        cv.put(EMPLOYEE_IMAGE,empProfileImage);
+        cv.put(EMPLOYEE_IMAGE,empImage);
         cv.put(EMPLOYEE_FNAME,FirstName);
         cv.put(EMPLOYEE_LNAME,LastName);
         cv.put(EMPLOYEE_GENDER,Gender);
@@ -396,7 +462,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
         cv.put(EMPLOYEE_SERVICES,Services);
         cv.put(EMPLOYEE_MODEPAY,ModeOfPay);
         cv.put(EMPLOYEE_ACCESS_RIGHT, accessRight);
-
 
         //If the value of the statement is greater than 0, it means the update was successsful.
         return sqLiteDatabase.update(EMPLOYEE_TABLE_NAME,cv,EMPLOYEE_ID+"=?", new String[]{String.valueOf(EmpID)}) > 0;
@@ -408,7 +473,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     //CRUD FOR CATEGORY TABLE
-    public boolean addCategory(String txtCatImage, String categoryName,String categoryDescription){
+    public boolean addCategory(int txtCatImage, String categoryName,String categoryDescription){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues cv = new ContentValues();
@@ -425,10 +490,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return sqLiteDatabase.rawQuery("SELECT * FROM "+CATEGORY_TABLE_NAME, null);
     }
 
-    public boolean updateCategory(int categotyID, String categoryName, String categoryDescription){
+    public boolean updateCategory(int categotyID, int txtCatImage, String categoryName,String categoryDescription){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues cv = new ContentValues();
+        cv.put(CATEGORY_IMG,txtCatImage);
         cv.put(CATEGORY_NAME,categoryName);
         cv.put(CATEGORY_DESCRIPTION,categoryDescription);
 
@@ -442,10 +508,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     //CRUD FOR SERVICES TABLE
-    public boolean addServices(String serv_Name, String serv_Description,int categoryID_FK,int price, int duration, int availability){
+    public boolean addServices(int serviceImage, String serv_Name, String serv_Description,int categoryID_FK,int price, int duration, int availability){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues cv = new ContentValues();
+        cv.put(SERV_IMG, serviceImage);
         cv.put(SERV_NAME, serv_Name);
         cv.put(SERV_DESCRIPTION, serv_Description);
         cv.put(SERV_PRICE, price);
@@ -462,14 +529,16 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return sqLiteDatabase.rawQuery("SELECT * FROM "+SERVICES_TABLE_NAME, null);
     }
 
-    public boolean updateServices(int servID, int categoryID_FK, String serv_Name, String serv_Description, int price, String availability){
+    public boolean updateServices(int servID, int servImage, String serv_Name, String serv_Description,int categoryID_FK,int price, int duration, int availability){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues cv = new ContentValues();
         cv.put(CATEGORY_ID_FK, categoryID_FK);
+        cv.put(SERV_IMG, servImage);
         cv.put(SERV_NAME, serv_Name);
         cv.put(SERV_DESCRIPTION, serv_Description);
         cv.put(SERV_PRICE, price);
+        cv.put(SERV_DURATION, duration);
         cv.put(SERV_AVAILABILITY, availability);
 
         //If the value of the statement is greater than 0, it means the update was successsful.
@@ -482,10 +551,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     //CRUD FOR PRODUCT TABLE
-    public boolean addProducts( String prod_Name, String prod_descr, int quantity, int price, int reorderLevel, int availability, int services){
+    public boolean addProducts(int prodImage, String prod_Name, String prod_descr, int quantity, int price, int reorderLevel, int availability, int services){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues cv = new ContentValues();
+        cv.put(PRODUCT_IMG_ID, prodImage);
         cv.put(PRODUCT_NAME, prod_Name);
         cv.put(PRODUCT_DESCR, prod_descr);
         cv.put(PRODUCT_QTY, quantity);
@@ -503,11 +573,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return sqLiteDatabase.rawQuery("SELECT * FROM "+PRODUCT_TABLE_NAME, null);
     }
 
-    public boolean updateProducts(int prodID,String prod_Name,String prod_descr,int quantity, int price,int reorderLevel,int availability,int servID_FK){
+    public boolean updateProducts(int prodID,int prodImage, String prod_Name, String prod_descr, int quantity, int price, int reorderLevel, int availability, int services){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues cv = new ContentValues();
-        cv.put(SERVICE_ID_FK, servID_FK);
+        cv.put(SERVICE_ID_FK, services);
+        cv.put(PRODUCT_IMG_ID,prodImage);
         cv.put(PRODUCT_NAME, prod_Name);
         cv.put(PRODUCT_DESCR, prod_descr);
         cv.put(PRODUCT_QTY, quantity);
@@ -552,7 +623,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
         cv.put(APPT_PRODUCT_CHARGES, productCharges);
         cv.put(TOTAL_CHARGES, totalApptCharges);
 
-
         sqLiteDatabase.insert(APPT_TABLE_NAME, null, cv);
         return true;
     }
@@ -562,18 +632,32 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return sqLiteDatabase.rawQuery("SELECT * FROM "+APPT_TABLE_NAME, null);
     }
 
-    public boolean updateAppointment(int apptID, int custID_FK, String dateCreated, String apptDate, String apptTime, String services, String ifProductUsed, int beautician, String confirmation){
+    public boolean updateAppointment(int apptID, int custID_FK, DateTime apptDate, DateTime apptTime,
+                                     int services, int ifProductUsed, int beautician, int confirmation, int serviceCharges, int productCharges,
+                                     int totalApptCharges){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+
+        DateTime dateCreated = new DateTime();
+        String dateCreatedStr = ""+dateCreated.getDayOfMonth()+"/"+ dateCreated.getMonthOfYear()+"/" +
+                dateCreated.getYear();
+
+        String apptDateStr = ""+apptDate.getDayOfMonth()+"/"+ apptDate.getMonthOfYear()+"/" +
+                apptDate.getYear();
+
+        String apptTimeStr = ""+apptTime.getHourOfDay()+":"+ apptTime.getMinuteOfHour();
 
         ContentValues cv = new ContentValues();
         cv.put(CUST_ID_FK, custID_FK);
-        cv.put(APPT_DATE_CREATED, dateCreated);
-        cv.put(APPT_DATE,apptDate);
-        cv.put(APPT_TIME,apptTime);
+        cv.put(APPT_DATE_CREATED, dateCreatedStr);
+        cv.put(APPT_DATE,apptDateStr);
+        cv.put(APPT_TIME,apptTimeStr);
         cv.put(APPT_SERVICES,services);
         cv.put(APPT_IF_PRODUCT_USED,ifProductUsed);
         cv.put(APPT_STYLIST,beautician);
         cv.put(APPT_CONFIRMED,confirmation);
+        cv.put(APPT_SERVICE_CHARGES, serviceCharges);
+        cv.put(APPT_PRODUCT_CHARGES, productCharges);
+        cv.put(TOTAL_CHARGES, totalApptCharges);
 
         return sqLiteDatabase.update(APPT_TABLE_NAME,cv,APPT_ID+"=?", new String[]{String.valueOf(apptID)}) > 0;
     }
@@ -666,7 +750,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         cv.put(HOUR_DAY, bookedDayStr);
         cv.put(START_HOUR, bookedStartHour);
         cv.put(END_HOUR, bookedEndHour );
-        sqLiteDatabase.insert(FULLY_BOOKED_HOURS, null, cv);
+        sqLiteDatabase.insert(TIME_INTERVALS, null, cv);
         return true;
     }
     public Cursor readApptTimeInterval(){
@@ -695,15 +779,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     //CRUD FOR CUST_HISTORY TABLE
-    public boolean addCustHistory(String customerHistory_DateOfPayment, String customerHistory_Services, String customerHistory_Beautician, int customerHistory_TotalCharges, String customerHistory_ModeOfPay){
+    public boolean addCustHistory(int apptID, DateTime customerHistory_DateOfPayment){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
+        String dateOfPayment = ""+customerHistory_DateOfPayment.getDayOfWeek() +"/"+ customerHistory_DateOfPayment.getMonthOfYear() +"/" +customerHistory_DateOfPayment.getYear();
+
         ContentValues cv = new ContentValues();
-        cv.put(CUST_HISTORY_CHARGES, customerHistory_DateOfPayment);
-        cv.put(CUST_HISTORY_CHARGES, customerHistory_Services);
-        cv.put(CUST_HISTORY_BEAUTICIAN,customerHistory_Beautician);
-        cv.put(CUST_HISTORY_CHARGES,customerHistory_TotalCharges);
-        cv.put(CUST_HISTORY_MODE_OF_PAY,customerHistory_ModeOfPay);
+        cv.put(CUST_HISTORY_APPT_ID, apptID);
+        cv.put(CUST_HISTORY_DATE, dateOfPayment);
 
         sqLiteDatabase.insert(CUST_HISTORY_TABLE_NAME, null, cv);
         return true;
@@ -714,15 +797,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return sqLiteDatabase.rawQuery("SELECT * FROM "+CUST_HISTORY_TABLE_NAME, null);
     }
 
-    public boolean updateCustHistory(int custHistory_ID, String customerHistory_DateOfPayment, String customerHistory_Services, String customerHistory_Beautician, int customerHistory_TotalCharges, String customerHistory_ModeOfPay){
+    public boolean updateCustHistory(int custHistory_ID, int apptID, DateTime customerHistory_DateOfPayment){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        String dateOfPayment = ""+customerHistory_DateOfPayment.getDayOfWeek() +"/"+ customerHistory_DateOfPayment.getMonthOfYear() +"/" +customerHistory_DateOfPayment.getYear();
 
         ContentValues cv = new ContentValues();
-        cv.put(CUST_HISTORY_CHARGES, customerHistory_DateOfPayment);
-        cv.put(CUST_HISTORY_CHARGES, customerHistory_Services);
-        cv.put(CUST_HISTORY_BEAUTICIAN,customerHistory_Beautician);
-        cv.put(CUST_HISTORY_CHARGES,customerHistory_TotalCharges);
-        cv.put(CUST_HISTORY_MODE_OF_PAY,customerHistory_ModeOfPay);
+        cv.put(CUST_HISTORY_APPT_ID, apptID);
+        cv.put(CUST_HISTORY_DATE, dateOfPayment);
 
         return sqLiteDatabase.update(CUST_HISTORY_TABLE_NAME,cv,CUST_HISTORY_ID+"=?", new String[]{String.valueOf(custHistory_ID)}) > 0;
 
@@ -733,45 +814,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return sqLiteDatabase.delete(CUST_HISTORY_TABLE_NAME,CUST_HISTORY_ID+"=?", new String[]{String.valueOf(custHistory_ID)}) > 0;
     }
 
-    //CRUD FOR SALON_PAYMENT TABLE
-    public boolean addSalonPayment(int custHistoryID, String services, String beautician, int totalCharges, String modeOfPayment){
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
-        ContentValues cv = new ContentValues();
-        cv.put(SALON_PAYMENT_CUSTID_FK, custHistoryID);
-        cv.put(SALON_PAYMENT_SERVICES, services);
-        cv.put(SALON_PAYMENT_BEAUTICIAN,beautician);
-        cv.put(SALON_PAYMENT_TOTAL_CHARGES,totalCharges);
-        cv.put(SALON_PAYMENT_MODE_OF_PAY,modeOfPayment);
-
-        sqLiteDatabase.insert(SALON_PAYMENT_TABLE_NAME, null, cv);
-        return true;
-    }
-
-    public Cursor readSalonPayment(){
-        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        return sqLiteDatabase.rawQuery("SELECT * FROM "+SALON_PAYMENT_TABLE_NAME, null);
-        }
-
-    public boolean updateSalonPayment(int servPaymentID, int custHistoryID, String services, String beautician, int totalCharges, String modeOfPayment){
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-
-        ContentValues cv = new ContentValues();
-        cv.put(SALON_PAYMENT_CUSTID_FK, custHistoryID);
-        cv.put(SALON_PAYMENT_SERVICES, services);
-        cv.put(SALON_PAYMENT_BEAUTICIAN,beautician);
-        cv.put(SALON_PAYMENT_TOTAL_CHARGES,totalCharges);
-        cv.put(SALON_PAYMENT_MODE_OF_PAY,modeOfPayment);
-
-        return sqLiteDatabase.update(SALON_PAYMENT_TABLE_NAME,cv,SALON_PAYMENT_SERVPAY_ID+"=?", new String[]{String.valueOf(servPaymentID)}) > 0;
-
-    }
-
-    public boolean deleteSalonPayment(int servPaymentID){
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-        return sqLiteDatabase.delete(SALON_PAYMENT_TABLE_NAME,SALON_PAYMENT_SERVPAY_ID+"=?", new String[]{String.valueOf(servPaymentID)}) > 0;
-
-    }
 
     public List createArrayList(String table) {
         ArrayList<String> rowItems = null;
@@ -785,13 +828,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         customerList.clear();
                         customerList.add(new Customer(
                                 cursor.getInt(0),
-                                cursor.getString(1),
+                                cursor.getInt(1),
                                 cursor.getString(2),
                                 cursor.getString(3),
-                                cursor.getInt(4),
-                                cursor.getString(5),
+                                cursor.getString(4),
+                                cursor.getInt(5),
                                 cursor.getString(6),
-                                cursor.getString(7)
+                                cursor.getString(7),
+                                cursor.getString(8)
                         ));
                     }
                     while (cursor.moveToNext());
@@ -806,7 +850,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         employeeList.clear();
                         employeeList.add(new Employee(
                                 Empcursor.getInt(0),
-                                Empcursor.getBlob(1),
+                                Empcursor.getInt(1),
                                 Empcursor.getString(2),
                                 Empcursor.getString(3),
                                 Empcursor.getString(4),
@@ -850,11 +894,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         serviceList.add(new Service(
                                 servicesCursor.getInt(0),
                                 servicesCursor.getString(1),
-                                servicesCursor.getInt(2),
+                                servicesCursor.getString(2),
                                 servicesCursor.getInt(3),
-                                servicesCursor.getString(4),
-                                servicesCursor.getInt(5),
-                                servicesCursor.getInt(6)
+                                servicesCursor.getInt(4),
+                                servicesCursor.getString(5),
+                                servicesCursor.getInt(6),
+                                servicesCursor.getInt(7)
                         ));
                     }
                     while (servicesCursor.moveToNext());
@@ -871,11 +916,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
                                 ProductCursor.getInt(0),
                                 ProductCursor.getString(1),
                                 ProductCursor.getString(2),
-                                ProductCursor.getInt(3),
+                                ProductCursor.getString(3),
                                 ProductCursor.getInt(4),
                                 ProductCursor.getInt(5),
                                 ProductCursor.getInt(6),
-                                ProductCursor.getInt(7)
+                                ProductCursor.getInt(7),
+                                ProductCursor.getInt(8)
                         ));
                     }
                     while (ProductCursor.moveToNext());
@@ -917,11 +963,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         customerPaymentHistoryList.clear();
                         customerPaymentHistoryList.add(new CustomerPaymentHistory(
                                 CustHistoryCursor.getInt(0),
-                                CustHistoryCursor.getString(1),
-                                CustHistoryCursor.getString(2),
-                                CustHistoryCursor.getString(3),
-                                CustHistoryCursor.getInt(4),
-                                CustHistoryCursor.getString(5)
+                                CustHistoryCursor.getInt(1),
+                                CustHistoryCursor.getString(2)
                         ));
                     }
                     while (CustHistoryCursor.moveToNext());

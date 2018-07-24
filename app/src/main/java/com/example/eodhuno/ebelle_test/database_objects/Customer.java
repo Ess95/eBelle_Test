@@ -1,16 +1,18 @@
 package com.example.eodhuno.ebelle_test.database_objects;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Customer {
-    int CustID,Contact;
+    int CustID,Contact,customerImage;
     String FirstName, LastName, Gender, Email, Password, ConfirmPassword;
 
     public Customer() {}
 
-    public Customer(int custID, String firstName, String lastName, String gender, int contact, String email, String password, String confirmPassword) {
+    public Customer(int custID,int custImage, String firstName, String lastName, String gender, int contact, String email, String password, String confirmPassword) {
         CustID = custID;
+        this.customerImage = custImage;
         this.FirstName = firstName;
         this.LastName = lastName;
         this.Gender = gender;
@@ -19,6 +21,8 @@ public class Customer {
         this.Password = password;
         this.ConfirmPassword = confirmPassword;
     }
+
+    public int getCustomerImage() { return customerImage; }
 
     public void setCustID(int custID) {
         CustID = custID;
@@ -86,6 +90,8 @@ public class Customer {
         switch (propertyName){
             case "id":
                 return ""+getCustID();
+            case "custIMG":
+                return ""+getCustomerImage();
             case "fname":
                 return getFirstName();
             case "lname":
@@ -107,6 +113,7 @@ public class Customer {
     public ArrayList<String> getItems(){
         ArrayList<String> itemList = new ArrayList<String>();
         itemList.add(""+getCustID());
+        itemList.add(""+getCustomerImage());
         itemList.add(getFirstName());
         itemList.add(getLastName());
         itemList.add(getGender());

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.example.eodhuno.ebelle_test.DatabaseManager;
 import com.example.eodhuno.ebelle_test.database_objects.Appointment;
+import com.example.eodhuno.ebelle_test.database_objects.Employee;
 import com.example.eodhuno.ebelle_test.database_objects.Service;
 
 import org.joda.time.DateTime;
@@ -30,11 +31,12 @@ public class ServiceHelper {
                 allServices.add(new Service(
                         serviceCursor.getInt(0),
                         serviceCursor.getString(1),
-                        serviceCursor.getInt(2),
+                        serviceCursor.getString(2),
                         serviceCursor.getInt(3),
-                        serviceCursor.getString(4),
-                        serviceCursor.getInt(5),
-                        serviceCursor.getInt(6)
+                        serviceCursor.getInt(4),
+                        serviceCursor.getString(5),
+                        serviceCursor.getInt(6),
+                        serviceCursor.getInt(7)
                 ));
             }
             while (serviceCursor.moveToNext());
@@ -64,13 +66,13 @@ public class ServiceHelper {
 
         boolean found = false;
         for (Service servName : servicesArrayList) {
-            if (servName.getServ_Name() == service) {
+            if (servName.getServ_Name().equalsIgnoreCase(service)) {
                 currServiceName.add(servName);
                 found = true;
             }
         }
         if (!found) {
-            throw new Exception("*ODHUNO* NO SERVICE WITH SERVICE NAME " + service + " FOUND");
+            throw new Exception("*ODHUNO* NO SERVICE WITH NAME " + service + " FOUND");
         }
         return currServiceName;
     }
@@ -127,6 +129,7 @@ public class ServiceHelper {
         return currServiceDuration;
 
     }
+
 
     public static ArrayList<Service> getServicesByPriceRange(int low, int high) throws Exception {
         ArrayList<Service> serviceArrayList = getAllServices();

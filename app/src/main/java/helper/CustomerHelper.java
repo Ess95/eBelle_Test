@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.example.eodhuno.ebelle_test.DatabaseManager;
+import com.example.eodhuno.ebelle_test.database_objects.Appointment;
 import com.example.eodhuno.ebelle_test.database_objects.Customer;
 
 import java.util.ArrayList;
@@ -24,13 +25,14 @@ public class CustomerHelper {
             do {
                 allCustomers.add(new Customer(
                         customerProfilesCursor.getInt(0),
-                        customerProfilesCursor.getString(1),
+                        customerProfilesCursor.getInt(1),
                         customerProfilesCursor.getString(2),
                         customerProfilesCursor.getString(3),
-                        customerProfilesCursor.getInt(4),
-                        customerProfilesCursor.getString(5),
+                        customerProfilesCursor.getString(4),
+                        customerProfilesCursor.getInt(5),
                         customerProfilesCursor.getString(6),
-                        customerProfilesCursor.getString(7)
+                        customerProfilesCursor.getString(7),
+                        customerProfilesCursor.getString(8)
                 ));
             }
             while (customerProfilesCursor.moveToNext());
@@ -50,6 +52,22 @@ public class CustomerHelper {
         }
         if (!found) {
             throw new Exception("NO CUSTOMER WITH ID " + id + "FOUND");
+        }
+        return customer;
+    }
+
+    public static Customer getCustomerByEmail(String email) throws Exception {
+        ArrayList<Customer> customerArrayList = getAllCustomers();
+        Customer customer = new Customer();
+        boolean found = false;
+        for (Customer customer1 : customerArrayList) {
+            if (customer1.getEmail().equalsIgnoreCase(email)) {
+                customer = customer1;
+                found = true;
+            }
+        }
+        if (!found) {
+            throw new Exception("NO CUSTOMER WITH EMAIL " + email + "FOUND");
         }
         return customer;
     }

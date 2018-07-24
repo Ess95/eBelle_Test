@@ -39,12 +39,12 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     private void addNewCategory() {
-        String categoryImageText = imagTextView.getText().toString().trim();
+        int categoryImageText = Integer.parseInt(imagTextView.getText().toString());
         String categoryName = catName.getText().toString().trim();
         String categoryDescr = catDescr.getText().toString().trim();
 
 
-        if (categoryImageText.isEmpty()) {
+        if (categoryImageText == 0) {
             imagTextView.setError("Cannot be empty");
             imagTextView.requestFocus();
             return;

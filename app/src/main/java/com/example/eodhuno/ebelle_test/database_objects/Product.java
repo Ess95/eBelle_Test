@@ -4,14 +4,15 @@ import java.util.ArrayList;
 
 public class Product {
     int ProdID, ServID_FK, Price, reorderlevel, prodQty, Availability;
-    String Prod_Name, prodDescr;
+    String productImage, Prod_Name, prodDescr;
 
     public Product(){}
 
-    public Product(int prodID, String prod_Name, String prod_descr,int prodQuantity,int unitPrice, int reorderLevel,
+    public Product(int prodID,String prodImage, String prod_Name, String prod_descr,int prodQuantity,int unitPrice, int reorderLevel,
                    int availability,int servID_FK) {
         ProdID = prodID;
         ServID_FK = servID_FK;
+        productImage = prodImage;
         Prod_Name = prod_Name;
         prodDescr = prod_descr;
         prodQty = prodQuantity;
@@ -19,6 +20,10 @@ public class Product {
         reorderlevel = reorderLevel;
         Availability = availability;
 
+    }
+
+    public String getProductImage() {
+        return productImage;
     }
 
     public int getProdQty() {
@@ -90,6 +95,8 @@ public class Product {
         switch (propertyName){
             case "ProdID":
                 return String.valueOf(getProdID());
+            case "ProdImage":
+                return getProductImage() ;
             case "Prod_Name":
                 return getProd_Name();
             case "Prod_Descr":
@@ -113,6 +120,7 @@ public class Product {
         ArrayList<String> itemList = new ArrayList<String>();
         itemList.add(""+getProdID());
         itemList.add(""+getServID_FK());
+        itemList.add(getProductImage());
         itemList.add(getProd_Name());
         itemList.add(getProdDescr());
         itemList.add(""+getProdQty());
